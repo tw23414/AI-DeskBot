@@ -221,3 +221,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Visual Studio
+.vs/
+
+# Temporary files
+*.tmp
