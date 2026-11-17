@@ -25,3 +25,13 @@
 - Added recall command.
 - Connected memory to the main assistant.
 - Tested memory persistence across restarts.
+
+
+## v0.4.0 - Memory Improvements
+
+- Added numbered memory lists.
+- Added the `forget` command to delete individual memories.
+- Added the `clear memory` command with confirmation.
+- Added protection against saving empty memories.
+- Improved memory handling and validation.
+- Tested memory saving and loading across restarts.

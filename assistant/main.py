@@ -37,20 +37,44 @@ while True:
         print(f"{bot.name}: Goodbye!")
         break
 
-    elif user_message.lower().startswith("remember "):
+    elif user_message.lower().strip() == "remember" or user_message.lower().startswith("remember "):
         information = user_message[9:]
-        memory.remember(information)
-        print(f"{bot.name}: I'll remember that.")
+
+        if memory.remember(information):
+            print(f"{bot.name}: I'll remember that.")
+        else:
+            print(f"{bot.name}: I can't save an empty memory.")
 
     elif user_message.lower().strip() == "recall":
         saved_memories = memory.recall()
 
         if saved_memories:
             print(f"{bot.name}: Here's what I remember:")
-            for item in saved_memories:
-                print(f"- {item}")
+            for number, item in enumerate(saved_memories, start=1):
+                print(f"{number}. {item}")
         else:
             print(f"{bot.name}: I don't have any memories yet.")
+
+    elif user_message.lower().startswith("forget "):
+        try:
+            number = int(user_message[7:])
+            if memory.forget(number):
+                print(f"{bot.name}: Memory {number} forgotten.")
+            else:
+                print(f"{bot.name}: I couldn't find memory {number}.")
+        except ValueError:
+            print(f"{bot.name}: Please give me a valid memory number.")
+
+    elif user_message.lower().strip() == "clear memory":
+        confirmation = input(
+            f"{bot.name}: Are you sure you want to delete all memories? (yes/no): "
+        )
+
+        if confirmation.lower().strip() == "yes":
+            memory.clear()
+            print(f"{bot.name}: All memories cleared.")
+        else:
+            print(f"{bot.name}: Memory clearing cancelled.")
 
     else:
         response = bot.respond(user_message)
