@@ -1,3 +1,5 @@
+from personality.personality import personality
+
 class AIDeskBot:
     def __init__(self):
         self.name = "AI-DeskBot"
@@ -20,6 +22,7 @@ class AIDeskBot:
 bot = AIDeskBot()
 
 print(f"{bot.name} is online")
+print(personality.introduce())
 print("type 'exit' to shut down.\n")
 
 while True:

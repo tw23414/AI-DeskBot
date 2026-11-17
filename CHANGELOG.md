@@ -7,3 +7,11 @@
 - Added basic responses to greetings and questions.
 - Added an exit command.
 - Set up Git version control.
+
+
+## v0.2.0 - Personality System
+
+- Created a separate personality module.
+- Added AI-DeskBot's name, description and tone.
+- Added a personality introduction.
+- Connected the personality module to the main assistant.
