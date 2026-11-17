@@ -1,4 +1,7 @@
+
 from personality.personality import personality
+from memory.memory import memory
+
 
 class AIDeskBot:
     def __init__(self):
@@ -19,18 +22,36 @@ class AIDeskBot:
         else:
             return "I'm still learning. I don't know how to respond to that yet."
 
+
 bot = AIDeskBot()
 
-print(f"{bot.name} is online")
+print(f"{bot.name} is online!")
 print(personality.introduce())
-print("type 'exit' to shut down.\n")
+print("Memory system loaded!")
+print("Type 'exit' to shut down.\n")
 
 while True:
-    user_message = (input("you: "))
-    
+    user_message = input("You: ")
+
     if user_message.lower().strip() == "exit":
         print(f"{bot.name}: Goodbye!")
         break
 
-    response = bot.respond(user_message)
-    print(F"{bot.name}: {response}")
+    elif user_message.lower().startswith("remember "):
+        information = user_message[9:]
+        memory.remember(information)
+        print(f"{bot.name}: I'll remember that.")
+
+    elif user_message.lower().strip() == "recall":
+        saved_memories = memory.recall()
+
+        if saved_memories:
+            print(f"{bot.name}: Here's what I remember:")
+            for item in saved_memories:
+                print(f"- {item}")
+        else:
+            print(f"{bot.name}: I don't have any memories yet.")
+
+    else:
+        response = bot.respond(user_message)
+        print(f"{bot.name}: {response}")

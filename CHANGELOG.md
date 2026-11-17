@@ -15,3 +15,13 @@
 - Added AI-DeskBot's name, description and tone.
 - Added a personality introduction.
 - Connected the personality module to the main assistant.
+
+
+## v0.3.0 - Persistent Memory
+
+- Created a separate memory system.
+- Added persistent JSON memory storage.
+- Added remember command.
+- Added recall command.
+- Connected memory to the main assistant.
+- Tested memory persistence across restarts.
