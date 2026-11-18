@@ -227,3 +227,5 @@ __marimo__/
 
 # Temporary files
 *.tmp
+
+installer/output/
