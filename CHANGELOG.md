@@ -2,6 +2,26 @@
 # Changelog
 
 
+## v0.7.0 – Initial Installer Demo
+
+### Added
+- Created the first AI-DeskBot Windows installer using Inno Setup.
+- Added an installer script (`installer/installer.iss`).
+- Installer creates an AI-DeskBot installation directory.
+- Installer copies the required assistant, brain, memory and personality files.
+- Added a Start Menu shortcut.
+
+### Improved
+- Excluded personal memory data from installer packages.
+- Excluded unnecessary Python cache files.
+- Added installer build output to `.gitignore`.
+
+### Notes
+- Generated the first installer executable: `AI-DeskBot-Setup-v0.7.0.exe`.
+- Installer compilation successful.
+- Full installation testing remains outstanding because Windows Application Control blocked execution.
+
+
 ## v0.6.0 – Smarter Long-Term Memory
 
 ### Added
