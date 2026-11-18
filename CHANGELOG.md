@@ -1,6 +1,24 @@
 
 # Changelog
 
+
+## v0.6.0 – Smarter Long-Term Memory
+
+### Added
+- Automatic detection of ordinary memories.
+- Separate ordinary and long-term memory types.
+- Automatic 30-day expiry for ordinary memories.
+- Automatic removal of expired memories.
+- Duplicate memory prevention.
+- Relevant memory retrieval.
+- Improved AI accuracy when discussing saved memories.
+
+### Improved
+- AI-DeskBot uses relevant memories when answering questions.
+- AI-DeskBot avoids inventing unsupported personal information.
+- Memory persistence across restarts.
+
+
 ## v0.5.0 - The AI Brain
 
 - Integrated Ollama as the local AI runtime.

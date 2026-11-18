@@ -1,6 +1,8 @@
 
 from personality.personality import personality
 from memory.memory import memory
+from memory.memory_detector import detector
+from memory.memory_retrieval import retrieval
 from brain.ai_brain import brain
 
 
@@ -9,7 +11,16 @@ class AIDeskBot:
         self.name = "AI-DeskBot"
 
     def respond(self, message):
-        return brain.think(message, personality)
+        relevant_memories = retrieval.find_relevant(
+            message,
+            memory.recall()
+        )
+
+        return brain.think(
+            message,
+            personality,
+            relevant_memories
+        )
 
 
 bot = AIDeskBot()
@@ -18,6 +29,8 @@ print(f"{bot.name} is online!")
 print(personality.introduce())
 print("Memory system loaded!")
 print("AI brain loaded!")
+print("Automatic memory detection loaded!")
+print("Relevant memory retrieval loaded!")
 print("Type 'exit' to shut down.\n")
 
 while True:
@@ -29,20 +42,24 @@ while True:
         break
 
     elif command == "remember" or command.startswith("remember "):
-        information = user_message[9:]
+        information = user_message[9:].strip()
 
-        if memory.remember(information):
+        if memory.remember(information, "long-term"):
             print(f"{bot.name}: I'll remember that.")
         else:
-            print(f"{bot.name}: I can't save an empty memory.")
+            print(f"{bot.name}: I couldn't save that. It may be empty or already saved.")
 
     elif command == "recall":
         saved_memories = memory.recall()
 
         if saved_memories:
             print(f"{bot.name}: Here's what I remember:")
+
             for number, item in enumerate(saved_memories, start=1):
-                print(f"{number}. {item}")
+                print(
+                    f"{number}. {item['information']} "
+                    f"({item['type']})"
+                )
         else:
             print(f"{bot.name}: I don't have any memories yet.")
 
@@ -70,5 +87,13 @@ while True:
             print(f"{bot.name}: Memory clearing cancelled.")
 
     else:
+        detected_memory = detector.detect(user_message)
+
+        if detected_memory:
+            if memory.remember(detected_memory, "ordinary"):
+                print(f"{bot.name}: I'll keep that in mind!")
+            else:
+                print(f"{bot.name}: I already have that saved!")
+
         response = bot.respond(user_message)
         print(f"{bot.name}: {response}")
