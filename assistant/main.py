@@ -1,6 +1,7 @@
 
 from personality.personality import personality
 from memory.memory import memory
+from brain.ai_brain import brain
 
 
 class AIDeskBot:
@@ -8,19 +9,7 @@ class AIDeskBot:
         self.name = "AI-DeskBot"
 
     def respond(self, message):
-        message = message.lower().strip()
-
-        if message in ["hello", "hi", "hey"]:
-            return "Hello! I'm AI-DeskBot. Nice to meet you."
-
-        elif "your name" in message:
-            return f"My name is {self.name}."
-
-        elif "how are you" in message:
-            return "I'm doing well! What would you like to do?"
-
-        else:
-            return "I'm still learning. I don't know how to respond to that yet."
+        return brain.think(message, personality)
 
 
 bot = AIDeskBot()
@@ -28,16 +17,18 @@ bot = AIDeskBot()
 print(f"{bot.name} is online!")
 print(personality.introduce())
 print("Memory system loaded!")
+print("AI brain loaded!")
 print("Type 'exit' to shut down.\n")
 
 while True:
     user_message = input("You: ")
+    command = user_message.lower().strip()
 
-    if user_message.lower().strip() == "exit":
+    if command == "exit":
         print(f"{bot.name}: Goodbye!")
         break
 
-    elif user_message.lower().strip() == "remember" or user_message.lower().startswith("remember "):
+    elif command == "remember" or command.startswith("remember "):
         information = user_message[9:]
 
         if memory.remember(information):
@@ -45,7 +36,7 @@ while True:
         else:
             print(f"{bot.name}: I can't save an empty memory.")
 
-    elif user_message.lower().strip() == "recall":
+    elif command == "recall":
         saved_memories = memory.recall()
 
         if saved_memories:
@@ -55,17 +46,19 @@ while True:
         else:
             print(f"{bot.name}: I don't have any memories yet.")
 
-    elif user_message.lower().startswith("forget "):
+    elif command.startswith("forget "):
         try:
-            number = int(user_message[7:])
+            number = int(command[7:])
+
             if memory.forget(number):
                 print(f"{bot.name}: Memory {number} forgotten.")
             else:
                 print(f"{bot.name}: I couldn't find memory {number}.")
+
         except ValueError:
             print(f"{bot.name}: Please give me a valid memory number.")
 
-    elif user_message.lower().strip() == "clear memory":
+    elif command == "clear memory":
         confirmation = input(
             f"{bot.name}: Are you sure you want to delete all memories? (yes/no): "
         )
